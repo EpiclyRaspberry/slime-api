@@ -4,7 +4,7 @@ const port = 3000;
 
 app.use(express.json());
 
-app.post('/slime', (req, res) => {
+app.post('/', (req, res) => {
   const tables = req.body.tables;
   if (!Array.isArray(tables)) {
     return res.status(400).json({ error: 'Invalid input' });
