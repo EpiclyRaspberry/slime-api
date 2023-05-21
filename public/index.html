@@ -1,40 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>API Introduction</title>
+  <title>API Start Page</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      padding: 20px;
+      text-align: center;
+      background-color: #f1f1f1;
     }
+
     h1 {
-      margin-top: 0;
+      color: #333;
+    }
+
+    .container {
+      margin: 100px auto;
+      width: 500px;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-top: 20px;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
     }
   </style>
 </head>
 <body>
-  <h1>Welcome to the API!</h1>
-  <p>This is an introduction to the API and its functionality.</p>
-  <p>You can use the API to perform specific tasks or retrieve data.</p>
-  <h2>Example Usage</h2>
-  <pre>
-    <code>
-fetch('/slime', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    tables: [
-      [chunkX1, chunkZ1],
-      [chunkX2, chunkZ2],
-      [chunkX3, chunkZ3]
-    ]
-  })
-})
-  .then(response => response.json())
-  .then(data => console.log(data));
-    </code>
-  </pre>
+  <div class="container">
+    <h1>Welcome to the API Start Page</h1>
+    <p>This page provides an introduction to the API and its functionality.</p>
+    <a href="/slime" class="btn">Go to API</a>
+  </div>
 </body>
 </html>
