@@ -9,7 +9,7 @@ app.post('/slimechunk', (req, res) => {
   const tables = req.body.tables;
   console.log(tables);
   const results = slime(tables);
-  res.json({ results });
+  res.json({ tables });
 });
 
 
