@@ -5,7 +5,7 @@ const port = 3000;
 
 app.use(express.json());
 
-app.get('/slimechunk', (req, res) => {
+app.post('/slimechunk', (req, res) => {
   const tables = req.body.tables;
   console.log(tables);
   const results = slime(tables);
