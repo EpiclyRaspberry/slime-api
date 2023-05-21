@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>API Demo</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/codemirror.min.css">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -22,10 +23,10 @@
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
     
-    textarea {
-      width: 100%;
-      height: 100px;
-      resize: none;
+    .CodeMirror {
+      height: auto;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
     
     input[type="submit"] {
@@ -48,7 +49,7 @@
   <div class="container">
     <h1>Welcome to the API Demo</h1>
     <p>
-      Use the form below to interact with the API and test the "slime" functionality.
+      Use the code editor below to interact with the API and test the "slime" functionality.
     </p>
     <form id="apiForm">
       <label for="tables">Enter Tables (in JSON format):</label>
@@ -61,50 +62,51 @@
     </div>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/mode/javascript/javascript.min.js"></script>
   <script>
     const form = document.getElementById('apiForm');
     const outputContainer = document.getElementById('outputContainer');
     const output = document.getElementById('output');
 
+    const textarea = document.getElementById('tables');
+    const editor = CodeMirror.fromTextArea(textarea, {
+      mode: 'application/json',
+      lineNumbers: true,
+      tabSize: 2,
+      indentWithTabs: true
+    });
+
     form.addEventListener('submit', function(event) {
       event.preventDefault();
-      const tables = document.getElementById('tables').value;
+      const tables = editor.getValue();
       sendRequest(tables);
     });
 
-    function sendRequest() {
-  const apiUrl = 'https://zeuroux.me/api/slime';
-  const textarea = document.getElementById('tables');
-  let tables = textarea.value;
+    function sendRequest(tables) {
+      const apiUrl = 'https://zeuroux.me/api/slime';
+      const curlCommand = `curl -X POST -H "Content-Type: application/json" -d '${tables}' ${apiUrl}`;
 
-  // Use placeholder as input if the textarea is empty
-  if (tables.trim() === '') {
-    tables = textarea.placeholder;
-  }
+      fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: tables
+      })
+        .then(response => response.json())
+        .then(data => {
+          output.textContent = JSON.stringify(data, null, 2);
+          outputContainer.style.display = 'block';
+        })
+        .catch(error => {
+          console.error(error);
+          output.textContent = 'Error occurred. Please check the console for details.';
+          outputContainer.style.display = 'block';
+        });
 
-  const curlCommand = `curl -X POST -H "Content-Type: application/json" -d '${tables}' ${apiUrl}`;
-
-  fetch(apiUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: tables
-  })
-    .then(response => response.json())
-    .then(data => {
-      output.textContent = JSON.stringify(data, null, 2);
-      outputContainer.style.display = 'block';
-    })
-    .catch(error => {
-      console.error(error);
-      output.textContent = 'Error occurred. Please check the console for details.';
-      outputContainer.style.display = 'block';
-    });
-
-  console.log(curlCommand);
-}
-
+      console.log(curlCommand);
+    }
   </script>
 </body>
 </html>
