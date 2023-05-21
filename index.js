@@ -8,7 +8,7 @@ app.use(express.json());
 app.post('/slimechunk', (req, res) => {
   const tables = req.body.tables;
   console.log(tables);
-  const results = slime(tables);
+  //const results = slime(tables);
   res.json({ tables });
 });
 
