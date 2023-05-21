@@ -1,1 +1,40 @@
-idk
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API Introduction</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h1 {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to the API!</h1>
+  <p>This is an introduction to the API and its functionality.</p>
+  <p>You can use the API to perform specific tasks or retrieve data.</p>
+  <h2>Example Usage</h2>
+  <pre>
+    <code>
+fetch('/slime', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    tables: [
+      [chunkX1, chunkZ1],
+      [chunkX2, chunkZ2],
+      [chunkX3, chunkZ3]
+    ]
+  })
+})
+  .then(response => response.json())
+  .then(data => console.log(data));
+    </code>
+  </pre>
+</body>
+</html>
