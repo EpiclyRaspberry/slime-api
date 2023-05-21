@@ -72,30 +72,39 @@
       sendRequest(tables);
     });
 
-    function sendRequest(tables) {
-      const apiUrl = 'https://zeuroux.me/api/slime';
-      const curlCommand = `curl -X POST -H "Content-Type: application/json" -d '${tables}' ${apiUrl}`;
+    function sendRequest() {
+  const apiUrl = 'https://zeuroux.me/api/slime';
+  const textarea = document.getElementById('tables');
+  let tables = textarea.value;
 
-      fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: tables
-      })
-      .then(response => response.json())
-      .then(data => {
-        output.textContent = JSON.stringify(data, null, 2);
-        outputContainer.style.display = 'block';
-      })
-      .catch(error => {
-        console.error(error);
-        output.textContent = 'Error occurred. Please check the console for details.';
-        outputContainer.style.display = 'block';
-      });
+  // Use placeholder as input if the textarea is empty
+  if (tables.trim() === '') {
+    tables = textarea.placeholder;
+  }
 
-      console.log(curlCommand);
-    }
+  const curlCommand = `curl -X POST -H "Content-Type: application/json" -d '${tables}' ${apiUrl}`;
+
+  fetch(apiUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: tables
+  })
+    .then(response => response.json())
+    .then(data => {
+      output.textContent = JSON.stringify(data, null, 2);
+      outputContainer.style.display = 'block';
+    })
+    .catch(error => {
+      console.error(error);
+      output.textContent = 'Error occurred. Please check the console for details.';
+      outputContainer.style.display = 'block';
+    });
+
+  console.log(curlCommand);
+}
+
   </script>
 </body>
 </html>
