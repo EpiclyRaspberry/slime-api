@@ -12,7 +12,9 @@ app.post('/slimechunk', (req, res) => {
   res.json({req.body});
 });
 
-
+app.get("/slimechunk", (req,res) => {
+  res.json({"ok":"ok"}):
+}):
 
 app.listen(port, () => {
   console.log(`API server listening on port ${port}`);
