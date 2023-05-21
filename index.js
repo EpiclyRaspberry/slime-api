@@ -8,7 +8,7 @@ app.use(express.json());
 app.post('/api/slime', (req, res) => {
   const tables = req.body.tables;
   if (!Array.isArray(tables)) {
-    return res.status(400).json({ req.body });
+    return res.status(400).json({ error: 'Invalid input', data: req.body });
   }
   
   const results = slime(tables);
