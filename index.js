@@ -5,19 +5,14 @@ const port = 3000;
 
 app.use(express.json());
 
-app.post('/api/slime', (req, res) => {
+app.get('/slimechunk', (req, res) => {
   const tables = req.body.tables;
-  if (!Array.isArray(tables)) {
-    return res.status(400).json({ error: 'Invalid input', data: req.body });
-  }
-  
+  console.log(tables);
   const results = slime(tables);
   res.json({ results });
 });
 
-app.get('/slime', (req, res) => {
-  res.sendFile(path.join(__dirname, 'slime', 'index.html'));
-});
+
 
 app.listen(port, () => {
   console.log(`API server listening on port ${port}`);
