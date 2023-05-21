@@ -7,7 +7,9 @@ app.use(express.json());
 
 app.post('/api/slime', (req, res) => {
   const tables = req.body.tables;
- 
+  if (!Array.isArray(tables)) {
+    return res.status(400).json({ req.body });
+  }
   
   const results = slime(tables);
   res.json({ results });
